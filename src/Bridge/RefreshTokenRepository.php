@@ -56,7 +56,9 @@ class RefreshTokenRepository implements RefreshTokenRepositoryInterface
             'expires_at' => $refreshTokenEntity->getExpiryDateTime(),
         ]);
 
-        $this->events->fire(new RefreshTokenCreated($id, $accessTokenId));
+        //$this->events->fire(new RefreshTokenCreated($id, $accessTokenId));
+        // support for event changes in laravel/lumen 5.8.*
+        $this->events->dispatch(new RefreshTokenCreated($id, $accessTokenId));
     }
 
     /**
